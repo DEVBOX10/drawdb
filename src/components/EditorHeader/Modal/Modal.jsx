@@ -35,19 +35,13 @@ import SetTableWidth from "./SetTableWidth";
 import Language from "./Language";
 import Share from "./Share";
 import CodeMirror from "@uiw/react-codemirror";
-import { sql } from "@codemirror/lang-sql";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
-import { json } from "@codemirror/lang-json";
 import { githubLight } from "@uiw/codemirror-theme-github";
 import { useTranslation } from "react-i18next";
 import { importSQL } from "../../../utils/importSQL";
 import { databases } from "../../../data/databases";
 import { isRtl } from "../../../i18n/utils/rtl";
-
-const languageExtension = {
-  sql: [sql()],
-  json: [json()],
-};
+import { languageExtension } from "../../../data/editorExtensions";
 
 export default function Modal({
   modal,

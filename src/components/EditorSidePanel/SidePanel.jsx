@@ -13,6 +13,7 @@ import { databases } from "../../data/databases";
 import EnumsTab from "./EnumsTab/EnumsTab";
 import { isRtl } from "../../i18n/utils/rtl";
 import i18n from "../../i18n/i18n";
+import DBMLEditor from "./DBMLEditor/DBMLEditor";
 
 export default function SidePanel({ width, resize, setResize }) {
   const { layout } = useLayout();
@@ -58,23 +59,31 @@ export default function SidePanel({ width, resize, setResize }) {
         style={{ width: `${width}px` }}
       >
         <div className="h-full flex-1 overflow-y-auto">
-          <Tabs
-            type="card"
-            activeKey={selectedElement.currentTab}
-            lazyRender
-            onChange={(key) =>
-              setSelectedElement((prev) => ({ ...prev, currentTab: key }))
-            }
-            collapsible
-            tabBarStyle={{ direction: "ltr" }}
-          >
-            {tabList.length &&
-              tabList.map((tab) => (
-                <TabPane tab={tab.tab} itemKey={tab.itemKey} key={tab.itemKey}>
-                  <div className="p-2">{tab.component}</div>
-                </TabPane>
-              ))}
-          </Tabs>
+          {layout.dbmlEditor ? (
+            <Tabs
+              type="card"
+              activeKey={selectedElement.currentTab}
+              lazyRender
+              onChange={(key) =>
+                setSelectedElement((prev) => ({ ...prev, currentTab: key }))
+              }
+              collapsible
+              tabBarStyle={{ direction: "ltr" }}
+            >
+              {tabList.length &&
+                tabList.map((tab) => (
+                  <TabPane
+                    tab={tab.tab}
+                    itemKey={tab.itemKey}
+                    key={tab.itemKey}
+                  >
+                    <div className="p-2">{tab.component}</div>
+                  </TabPane>
+                ))}
+            </Tabs>
+          ) : (
+            <DBMLEditor />
+          )}
         </div>
         {layout.issues && (
           <div className="mt-auto border-t-2 border-color shadow-inner">
